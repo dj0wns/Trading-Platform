@@ -8,14 +8,10 @@
 #include "Globals.h"
 #include "stdafx.h"
 
-
-size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata){
-	std::ofstream fout;
-	fout.open("CMEGroup/Commodities");
-	fout << ptr;
-	return 0;
+size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
+	size_t written = fwrite(ptr, size, nmemb, stream);
+	return written;
 }
-
 
 float fetchLowestPrice(std::string nameOfSecurity){  //returns the lowest price
 
@@ -30,7 +26,7 @@ bool updatePrices(){
 	CURL *curl;
 	CURLcode res;
 
-
+	FILE *f = fopen("CMEGroupFiles/commodities.html","wb"); //dont forget to check for valid folders and stuff
 	curl = curl_easy_init();
 
 	
@@ -38,8 +34,9 @@ bool updatePrices(){
 		curl_easy_setopt(curl, CURLOPT_URL, CME_GROUP_WEBPAGES[0]);
 		/* example.com is redirected, so we tell libcurl to follow redirection */
 		curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
 
-		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, *write_callback);
+		curl_easy_setopt(curl, CURLOPT_WRITEDATA, f);
 
 
 		/* Perform the request, res will get the return code */
