@@ -11,7 +11,7 @@
 
 size_t write_callback(char *ptr, size_t size, size_t nmemb, void *userdata){
 	std::ofstream fout;
-	fout.open("CMEGroup/Commodities");
+	fout.open("Commodities.html");
 	fout << ptr;
 	return 0;
 }
