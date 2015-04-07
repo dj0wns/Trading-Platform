@@ -1,6 +1,6 @@
 # Trading-Platform
 
-The purpose of this project is to simulate the futures trading environment of hedge fund or large bank. 
+The purpose of this project is to simulate the futures trading environment of a hedge fund or large bank. 
 
 This is made possible through the use the delayed quotes from the CMEGroup webpage using libcURL and then parsing the resulting JSON file with the boost libraries. 
 
