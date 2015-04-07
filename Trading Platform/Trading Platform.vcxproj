@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <LibraryPath>C:\Program Files %28x86%29\cURL\lib;$(LibraryPath)</LibraryPath>
-    <IncludePath>C:\Users\Derek\Desktop\libcurl64\include;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Derek\Documents\c++ work\boost_1_57_0;C:\Users\Derek\Desktop\libcurl64\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -85,6 +85,7 @@
     <ClInclude Include="buyingStrategies.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="priceFetching.h" />
+    <ClInclude Include="Product.h" />
     <ClInclude Include="sellingStrategies.h" />
     <ClInclude Include="Holding.h" />
     <ClInclude Include="Order.h" />
@@ -96,6 +97,7 @@
     <ClCompile Include="Holding.cpp" />
     <ClCompile Include="Order.cpp" />
     <ClCompile Include="priceFetching.cpp" />
+    <ClCompile Include="Product.cpp" />
     <ClCompile Include="sellingStrategies.cpp" />
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="stdafx.cpp">

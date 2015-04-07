@@ -13,6 +13,10 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	return written;
 }
 
+bool parseFileData(){ //parses the json into an obect list
+	return 0;
+}
+
 float fetchLowestPrice(std::string nameOfSecurity){  //returns the lowest price
 
     return 0;

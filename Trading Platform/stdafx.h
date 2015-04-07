@@ -12,7 +12,13 @@
 #include <iostream> // for io operations
 #include <fstream> //for archiving data
 #include <string> //strings are great
-#include "curl/curl.h" // for web operations
+#include <regex> // for file parsing
+#include <curl/curl.h> // for web operations
 
+
+//for parsing the JSON from cme website
+#include <boost/property_tree/ptree.hpp>
+#include <boost/property_tree/json_parser.hpp>
+#include <boost/foreach.hpp>
 
 // TODO: reference additional headers your program requires here

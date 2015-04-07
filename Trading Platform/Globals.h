@@ -16,7 +16,7 @@ enum sellFunctionNames { //names of sales functions for easy reference when pass
 
 extern const int CME_GROUP_WEBPAGES_SIZE;
 
-extern char *CME_GROUP_WEBPAGES[3];
+extern const char *CME_GROUP_WEBPAGES[3];
 
 
 #endif
