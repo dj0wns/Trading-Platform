@@ -9,8 +9,8 @@
 #include "stdafx.h"
 #include "Product.h"
 
-std::vector<Product> updatePrices(); //refreshes all prices
+bool updatePrices(); //refreshes all prices
 
-std::vector<Product> parseFileData();// parses the file data into the products vector
+bool parseFileData(std::vector<Product> &);// parses the file data into the products vector
 
 #endif

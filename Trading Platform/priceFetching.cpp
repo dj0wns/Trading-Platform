@@ -35,14 +35,12 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	return written;
 }
 
-std::vector<Product> parseFileData(){ //parses the json into an obect list
+bool parseFileData(std::vector<Product> &products){ //parses the json into an obect list
 	using boost::property_tree::ptree;
 	ptree pt;
 	read_json(FILE_PATH, pt);
 	Product foo;
 	std::string temp, temp2; //used for testing json values for the accepted formats to minimize runtime
-	std::vector<Product> products;
-
 	//have this pass the contents to a new instance of product
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("products")){
 		if (((std::string)v.first.data()).compare("ALL_TICKERS") != 0){ //move out the useless node
@@ -59,14 +57,12 @@ std::vector<Product> parseFileData(){ //parses the json into an obect list
 			}	
 		}
 	}
-	return products;
+	return 1;
 }
 //returns the most recent list of products
-std::vector<Product> updatePrices(){
+bool updatePrices(){
 	CURL *curl;
 	CURLcode res;
-	std::vector<Product> products;
-
 	FILE *f = fopen(FILE_PATH, "wb");
 	curl = curl_easy_init();
 
@@ -82,15 +78,13 @@ std::vector<Product> updatePrices(){
 		if (res != CURLE_OK){
 			fprintf(stderr, "curl_easy_perform() failed: %s\n",
 			curl_easy_strerror(res));
-			return products; //return blank vector if failed
+			return 0;
 		}
 
 		/* always cleanup */
 		curl_easy_cleanup(curl);
 	}
 	fclose(f);
-	
-	products =  parseFileData();
-	return products;
+	return 1;
 }
 

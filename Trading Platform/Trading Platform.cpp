@@ -11,6 +11,8 @@
 
 /*
 Changelog:
+4/08/15
+	Version 0.2 - moved file operations to a background thread, planning to also create a ui thread
 4/07/15
 	Version 0.1b - Now correctly parses the read json into a vector of products
 4/06/15
@@ -28,18 +30,23 @@ Changelog:
 #include "priceFetching.h" //methods to fetch prices of a stock or security or w/e
 #include "Globals.h"
 
+void initialize(std::vector<Product> &);
 
 int main(){
-	std::vector<Product> products = updatePrices(); //placeholder before is add multiple threads
-	BOOST_FOREACH(Product v, products){
-		v.print();
-	}
+	std::vector<Product> products;
+	std::thread	backend(initialize,std::ref(products));
+		//placeholder before is add multiple threads
+	
+	
+
+	std::cout << products.size();
+	backend.join();
 	std::cout << products.size();
 	std::cin.get();
     return 0;
 }
 
-void initialize(){//initialize global vars among other things
+void initialize(std::vector<Product>& products){//initialize global vars among other things
 	strategies buyStrategies[] = { //initialize the list of buy strategies to push into order
 		immediateTradeBuy,
 		standardTWAPBuy,
@@ -50,5 +57,12 @@ void initialize(){//initialize global vars among other things
 		standardTWAPSell,
 		aggressiveTWAPSell
 	};
+	updatePrices();
+	parseFileData(products);
+
+	BOOST_FOREACH(Product v, products){
+		v.print();
+	}
+
 
 }

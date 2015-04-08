@@ -12,10 +12,11 @@
 #include <iostream> // for io operations
 #include <fstream> //for archiving data
 #include <string> //strings are great
-#include <regex> // for file parsing
+#include <regex> // for string parsing
 #include <curl/curl.h> // for web operations
 #include <cassert> // for errors
 #include <vector> // for products and orders
+#include <thread> //for multithreading
 
 
 //for parsing the JSON from cme website
