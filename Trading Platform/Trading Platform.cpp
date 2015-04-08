@@ -30,8 +30,12 @@ Changelog:
 
 
 int main(){
-
-	parseFileData();
+	std::vector<Product> products = updatePrices(); //placeholder before is add multiple threads
+	BOOST_FOREACH(Product v, products){
+		v.print();
+	}
+	std::cout << products.size();
+	std::cin.get();
     return 0;
 }
 

@@ -10,8 +10,8 @@
 #include "Product.h"
 using namespace boost::filesystem;
 
+//writes read json to a file
 size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
-
 	//check if folder exists
 	if (exists("CMEGroupFiles")){
 		if (!is_directory("CMEGroupFiles")){
@@ -40,19 +40,23 @@ std::vector<Product> parseFileData(){ //parses the json into an obect list
 	ptree pt;
 	read_json("CMEGroupFiles/commodities.json", pt);
 	Product foo;
-	std::string temp;
+	std::string temp, temp2;
 	std::vector<Product> products;
 
 	//have this pass the contents to a new instance of product
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("products")){
 		if (((std::string)v.first.data()).compare("ALL_TICKERS") != 0){ //move out the useless node
-			// only doing grains and metals atm
+			// only doing grains and metals atm and only loads globex pricing
 			temp = pt.get_child("products." + (std::string)v.first.data() + ".GROUP_NAME").data();
+			temp2 = pt.get_child("products." + (std::string)v.first.data() + ".GLOBEX_OR_FLOOR").data();
+			//if conditions are listed in the expected likeliness of occuring to optimize runtime
 			if (temp.compare("Grains and Oilseeds") == 0 ||
 				temp.compare("Precious") == 0){
-				foo.set(pt, v.first.data());
-				products.push_back(foo);
-			}
+				if (temp2.compare("G") == 0){
+					foo.set(pt, v.first.data());
+					products.push_back(foo);
+				}
+			}	
 		}
 	}
 	return products;
@@ -67,10 +71,11 @@ float fetchHighestPrice(std::string nameOfSecurity){ //returns the highest price
     return 0;
 }
 
-bool updatePrices(){
+//returns the most recent list of products
+std::vector<Product> updatePrices(){
 	CURL *curl;
 	CURLcode res;
-
+	std::vector<Product> products;
 
 	FILE *f = fopen("CMEGroupFiles/commodities.json","wb"); 
 	curl = curl_easy_init();
@@ -87,14 +92,15 @@ bool updatePrices(){
 		if (res != CURLE_OK){
 			fprintf(stderr, "curl_easy_perform() failed: %s\n",
 			curl_easy_strerror(res));
-			return 0;
+			return products; //return blank vector if failed
 		}
 
 		/* always cleanup */
 		curl_easy_cleanup(curl);
 	}
 	fclose(f);
-	parseFileData();
-	return 1;
+	
+	products =  parseFileData();
+	return products;
 }
 

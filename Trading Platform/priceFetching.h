@@ -9,7 +9,7 @@ float fetchLowestPrice(std::string nameOfSecurity);  //returns the lowest price
 
 float fetchHighestPrice(std::string nameOfSecurity); //returns the highest price
 
-bool updatePrices(); //refreshes all prices
+std::vector<Product> updatePrices(); //refreshes all prices
 
 std::vector<Product> parseFileData();// parses the file data into the products vector
 

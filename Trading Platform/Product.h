@@ -8,13 +8,15 @@ class Product
 {
 public:
 	Product();
-	bool set(boost::property_tree::ptree, std::string);
+	bool set(boost::property_tree::ptree, std::string); //sets all properties of the product
+	std::string get(int); //returns the string of the corresponding enum
+	void print();
 	enum jsonCodes {
 		exchangeCode,
 		currentMonth,
 		price,
 		priceIndicator,
-		Name,
+		name,
 		groupName,
 		globexOrFloor,
 		netChange,
@@ -38,6 +40,7 @@ public:
 		highPriceIndicator,
 		fullTradeDate,
 		priceChartCode,
+		volumeChartCode,
 		order,
 		assetClass,
 		moyrCode,
@@ -45,11 +48,12 @@ public:
 		floorCode,
 		cumulativeVolume,
 		appendToPriceChartCode,
+		netChange2,
 		color
 	};
 protected:
 private:
-	std::string contents[40];
+	std::string contents[38];
 //variables to mirror the json from CMEGroup - unknown how many of these I will actually use
 
 };
