@@ -1,10 +1,8 @@
 
 #define _CRT_SECURE_NO_DEPRECATE // for fopen
 
-//contains functions for fetching best price of a stock or security or currency
+//contains functions for fetching the costs of the commodities
 
-//plan to use YQL to fetch data and an xml parser to parse the data into a usable format
-// may also check against bid listings on a variety of sites to give the most relevant price
 #include "Globals.h"
 #include "stdafx.h"
 #include "Product.h"
@@ -13,6 +11,8 @@ using namespace boost::filesystem;
 //writes read json to a file
 size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	//check if folder exists
+
+	//potentially change later to allow user to specify folder to save in
 	if (exists("CMEGroupFiles")){
 		if (!is_directory("CMEGroupFiles")){
 			remove("CMEGroupFiles");
@@ -38,9 +38,9 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 std::vector<Product> parseFileData(){ //parses the json into an obect list
 	using boost::property_tree::ptree;
 	ptree pt;
-	read_json("CMEGroupFiles/commodities.json", pt);
+	read_json(FILE_PATH, pt);
 	Product foo;
-	std::string temp, temp2;
+	std::string temp, temp2; //used for testing json values for the accepted formats to minimize runtime
 	std::vector<Product> products;
 
 	//have this pass the contents to a new instance of product
@@ -61,28 +61,18 @@ std::vector<Product> parseFileData(){ //parses the json into an obect list
 	}
 	return products;
 }
-
-float fetchLowestPrice(std::string nameOfSecurity){  //returns the lowest price
-
-    return 0;
-}
-
-float fetchHighestPrice(std::string nameOfSecurity){ //returns the highest price
-    return 0;
-}
-
 //returns the most recent list of products
 std::vector<Product> updatePrices(){
 	CURL *curl;
 	CURLcode res;
 	std::vector<Product> products;
 
-	FILE *f = fopen("CMEGroupFiles/commodities.json","wb"); 
+	FILE *f = fopen(FILE_PATH, "wb");
 	curl = curl_easy_init();
 
 	
 	if (curl) {
-		curl_easy_setopt(curl, CURLOPT_URL, "http://www.cmegroup.com/XSLT/homepage/DelayedQuotesJSON.html");
+		curl_easy_setopt(curl, CURLOPT_URL, CME_GROUP_WEBPAGE);
 		curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
 
 		curl_easy_setopt(curl, CURLOPT_WRITEDATA, f);

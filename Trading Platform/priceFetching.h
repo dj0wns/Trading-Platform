@@ -1,13 +1,13 @@
 #ifndef PRICEFETCHING_H
 #define PRICEFETCHING_H
 
+
+//contains functions for fetching the costs of the commodities
+
+
 #include "Globals.h"
 #include "stdafx.h"
 #include "Product.h"
-
-float fetchLowestPrice(std::string nameOfSecurity);  //returns the lowest price
-
-float fetchHighestPrice(std::string nameOfSecurity); //returns the highest price
 
 std::vector<Product> updatePrices(); //refreshes all prices
 

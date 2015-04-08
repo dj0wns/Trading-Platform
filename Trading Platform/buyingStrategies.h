@@ -1,6 +1,6 @@
 #ifndef BUYINGSTRATEGIES_H
 #define BUYINGTRATEGIES_H
-
+//contains the functions for all buying strategies
 
 
 bool immediateTradeBuy(int amountToBuy, float time, float delta, float stopPrice);//tries to purchase the entire order as quickly as possible without regard to shift in prices
