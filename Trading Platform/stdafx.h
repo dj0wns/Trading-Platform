@@ -14,11 +14,14 @@
 #include <string> //strings are great
 #include <regex> // for file parsing
 #include <curl/curl.h> // for web operations
+#include <cassert> // for errors
+#include <vector> // for products and orders
 
 
 //for parsing the JSON from cme website
 #include <boost/property_tree/ptree.hpp>
 #include <boost/property_tree/json_parser.hpp>
 #include <boost/foreach.hpp>
+#include <boost/filesystem.hpp>
 
 // TODO: reference additional headers your program requires here

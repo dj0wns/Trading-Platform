@@ -11,6 +11,12 @@
 
 /*
 Changelog:
+4/07/15
+	Version 0.1b - Now correctly parses the read json into a vector of products
+4/06/15
+	Version 0.1a - libcURL finally works properly
+4/01/15
+	Version 0.1 - Started work with libcurl
 3/14/15 - PI day~
     Version 0.0 - Wrote out function and class skeletons
 */
@@ -25,7 +31,7 @@ Changelog:
 
 int main(){
 
-	updatePrices();
+	parseFileData();
     return 0;
 }
 

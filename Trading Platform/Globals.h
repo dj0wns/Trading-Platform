@@ -14,9 +14,7 @@ enum sellFunctionNames { //names of sales functions for easy reference when pass
 	aggressiveTWAPSellS
 };
 
-extern const int CME_GROUP_WEBPAGES_SIZE;
-
-extern const char *CME_GROUP_WEBPAGES[3];
+extern char CME_GROUP_WEBPAGE[];
 
 
 #endif

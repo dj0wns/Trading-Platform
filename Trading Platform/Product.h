@@ -8,10 +8,9 @@ class Product
 {
 public:
 	Product();
-protected:
-private:
-//variables to mirror the json from CMEGroup - unknown how many of these I will actually use
-	std::string exchangeCode,
+	bool set(boost::property_tree::ptree, std::string);
+	enum jsonCodes {
+		exchangeCode,
 		currentMonth,
 		price,
 		priceIndicator,
@@ -46,7 +45,13 @@ private:
 		floorCode,
 		cumulativeVolume,
 		appendToPriceChartCode,
-		color;
+		color
+	};
+protected:
+private:
+	std::string contents[40];
+//variables to mirror the json from CMEGroup - unknown how many of these I will actually use
+
 };
 
 
