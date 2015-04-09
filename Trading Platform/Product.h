@@ -8,7 +8,7 @@ class Product
 {
 public:
 	Product();
-	bool set(boost::property_tree::ptree, std::string); //sets all properties of the product
+	bool set(boost::property_tree::ptree&, std::string); //sets all properties of the product
 	std::string get(int); //returns the string of the corresponding enum
 	void print();
 	enum jsonCodes {

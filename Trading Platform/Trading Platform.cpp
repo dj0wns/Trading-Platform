@@ -11,6 +11,9 @@
 
 /*
 Changelog:
+4/09/15
+	Version 0.3 - added thread controller to manage multithreading 
+		-plan to start work on order management soon and after that ui
 4/08/15
 	Version 0.2 - moved file operations to a background thread, planning to also create a ui thread
 4/07/15
@@ -38,23 +41,14 @@ int main(){
 	std::vector<Product> products;
 	//thread controller to manage multithreading
 	threadController tControl;
-	std::thread t1(&threadController::updateProducts, &tControl);
-	std::thread t2(&threadController::updateProducts, &tControl);
-	std::thread t3(&threadController::updateProducts, &tControl);
-	std::thread t4(&threadController::updateProducts, &tControl);
-	std::thread t5(&threadController::updateProducts, &tControl);
-
+	//std::thread t1(&threadController::updateProducts, &tControl);
 	std::thread	initialRun(initialize, std::ref(products), std::ref(tControl));
 
 	
 
 	std::cout << tControl.fetchProducts().size();
 	initialRun.join();
-	t1.join();
-	t2.join();
-	t3.join();
-	t4.join();
-	t5.join();
+
 	std::cout << tControl.fetchProducts().size();
     return 0;
 }
