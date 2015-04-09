@@ -16,7 +16,10 @@
 #include <curl/curl.h> // for web operations
 #include <cassert> // for errors
 #include <vector> // for products and orders
+
 #include <thread> //for multithreading
+#include <atomic> //prevent race conditions
+
 
 
 //for parsing the JSON from cme website

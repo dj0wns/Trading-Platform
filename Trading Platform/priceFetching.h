@@ -11,6 +11,6 @@
 
 bool updatePrices(); //refreshes all prices
 
-bool parseFileData(std::vector<Product> &);// parses the file data into the products vector
+std::vector<Product> parseFileData();// parses the file data into the products vector
 
 #endif

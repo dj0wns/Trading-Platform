@@ -29,24 +29,37 @@ Changelog:
 #include "sellingStrategies.h" //contains the sales strategies as function pointers, passed into Order class
 #include "priceFetching.h" //methods to fetch prices of a stock or security or w/e
 #include "Globals.h"
+#include "threadController.h" //methods for controlling thread interaction
 
-void initialize(std::vector<Product> &);
+
+void initialize(std::vector<Product> &, threadController &);
 
 int main(){
 	std::vector<Product> products;
-	std::thread	backend(initialize,std::ref(products));
-		//placeholder before is add multiple threads
-	
+	//thread controller to manage multithreading
+	threadController tControl;
+	std::thread t1(&threadController::updateProducts, &tControl);
+	std::thread t2(&threadController::updateProducts, &tControl);
+	std::thread t3(&threadController::updateProducts, &tControl);
+	std::thread t4(&threadController::updateProducts, &tControl);
+	std::thread t5(&threadController::updateProducts, &tControl);
+
+	std::thread	initialRun(initialize, std::ref(products), std::ref(tControl));
+
 	
 
-	std::cout << products.size();
-	backend.join();
-	std::cout << products.size();
-	std::cin.get();
+	std::cout << tControl.fetchProducts().size();
+	initialRun.join();
+	t1.join();
+	t2.join();
+	t3.join();
+	t4.join();
+	t5.join();
+	std::cout << tControl.fetchProducts().size();
     return 0;
 }
 
-void initialize(std::vector<Product>& products){//initialize global vars among other things
+void initialize(std::vector<Product>& products, threadController &tControl){//initialize global vars among other things
 	strategies buyStrategies[] = { //initialize the list of buy strategies to push into order
 		immediateTradeBuy,
 		standardTWAPBuy,
@@ -57,9 +70,9 @@ void initialize(std::vector<Product>& products){//initialize global vars among o
 		standardTWAPSell,
 		aggressiveTWAPSell
 	};
-	updatePrices();
-	parseFileData(products);
+	products = tControl.updateProducts();
 
+	std::cout << tControl.fetchProducts().size() << products.size();
 	BOOST_FOREACH(Product v, products){
 		v.print();
 	}

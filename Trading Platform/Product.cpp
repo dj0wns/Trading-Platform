@@ -21,6 +21,6 @@ std::string Product::get(int index){
 
 //prints formatted data about the product
 void Product::print(){
-	std::cout << contents[name] << "\t" << contents[ticker] << "\t" << contents[price] << std::endl;
+	std::cout << contents[name] << "\t" << contents[ticker] << "\t" <<  std::endl;
 
 }

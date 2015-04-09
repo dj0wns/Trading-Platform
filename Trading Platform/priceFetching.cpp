@@ -35,11 +35,12 @@ size_t write_data(void *ptr, size_t size, size_t nmemb, FILE *stream) {
 	return written;
 }
 
-bool parseFileData(std::vector<Product> &products){ //parses the json into an obect list
+std::vector<Product> parseFileData(){ //parses the json into an obect list
 	using boost::property_tree::ptree;
 	ptree pt;
 	read_json(FILE_PATH, pt);
 	Product foo;
+	std::vector<Product> products;
 	std::string temp, temp2; //used for testing json values for the accepted formats to minimize runtime
 	//have this pass the contents to a new instance of product
 	BOOST_FOREACH(ptree::value_type &v, pt.get_child("products")){
@@ -57,7 +58,7 @@ bool parseFileData(std::vector<Product> &products){ //parses the json into an ob
 			}	
 		}
 	}
-	return 1;
+	return products;
 }
 //returns the most recent list of products
 bool updatePrices(){
