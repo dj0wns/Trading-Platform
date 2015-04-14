@@ -13,7 +13,6 @@
 Changelog:
 4/13/15
 	Version 0.4 - added OrderController class and completed order class 
-		-NOTE- Order is currently untested
 4/09/15
 	Version 0.3 - added thread controller to manage multithreading 
 		-plan to start work on order management soon and after that ui
@@ -36,6 +35,7 @@ Changelog:
 -Write trading algorithms
 -Create UI
 -Finalize and test trades
+-Add exceptions to the file creation and working with the json file (atm assumes everything just works)
 -Add xml file for configuration
 */
 

@@ -81,8 +81,6 @@ bool updatePrices(){
 			curl_easy_strerror(res));
 			return 0;
 		}
-
-		/* always cleanup */
 		curl_easy_cleanup(curl);
 	}
 	fclose(f);

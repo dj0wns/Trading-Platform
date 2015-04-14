@@ -20,7 +20,7 @@ enum sellFunctionNames { //names of sales functions for easy reference when pass
 };
 
 
-//potential to add these contants to an xml file for easy modification
+//potential to add these constants to an xml file for easy modification
 extern char CME_GROUP_WEBPAGE[]; //webpage for fetching the json
 
 extern char FILE_PATH[]; //path where files are saved

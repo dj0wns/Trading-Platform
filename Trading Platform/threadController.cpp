@@ -4,8 +4,6 @@
 #include "priceFetching.h"
 
 
-//TODO:
-//change all joins to a doo loop until last check finishes
 
 
 threadController::threadController(){
