@@ -1,8 +1,11 @@
 #ifndef GLOBALS_H
 #define GLOBALS_H
 
+
+//definition for easy passing of functions as arguments
+#define funct bool(*ptr)(int, float, float, float)
 //containts global variables 
-typedef bool(*strategies) (int, float, float, float); //array of trading strategies
+typedef bool(*strategy) (int, float, float, float); //array of trading strategies
 
 enum buyFunctionNames { //names of purchase functions for easy reference when passing the function pointer - B refers to buy
 	immediateTradeB,

@@ -84,6 +84,7 @@
   <ItemGroup>
     <ClInclude Include="buyingStrategies.h" />
     <ClInclude Include="Globals.h" />
+    <ClInclude Include="OrderController.h" />
     <ClInclude Include="priceFetching.h" />
     <ClInclude Include="Product.h" />
     <ClInclude Include="sellingStrategies.h" />
@@ -97,6 +98,7 @@
     <ClCompile Include="buyingStrategies.cpp" />
     <ClCompile Include="Holding.cpp" />
     <ClCompile Include="Order.cpp" />
+    <ClCompile Include="OrderController.cpp" />
     <ClCompile Include="priceFetching.cpp" />
     <ClCompile Include="Product.cpp" />
     <ClCompile Include="sellingStrategies.cpp" />
