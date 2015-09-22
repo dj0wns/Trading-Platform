@@ -3,13 +3,13 @@
 //Object to contain and execute an order
 
 #include "Globals.h"
-
+#include "stdafx.h"
 class Order
 {
     public:
 	Order(strategy, int, float, float, float); //instantiate variables
         bool executeTrade();
-
+	void print();
     protected:
     private:
 	strategy function; //function used in the trade

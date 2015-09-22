@@ -17,3 +17,9 @@ bool Order::executeTrade(){
 	function(amount, time, delta, stopPrice);
 	return 1;
 }
+
+void Order::print(){
+	std::cout << "Time: " << time << "\tDelta: " << delta << "\tAmount: " << amount
+	<< "\tStop Price: " << stopPrice << std::endl;
+
+}

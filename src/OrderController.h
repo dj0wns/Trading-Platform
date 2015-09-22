@@ -23,6 +23,10 @@ public:
 	std::vector<Order*> getCompleted();
 	std::vector<Order*> getInProgress();
 	std::vector<Order*> getQueue();
+	void printCompleted();
+	void printInProgress();
+	void printQueue();
+	void printAll();
 
 protected:
 private:

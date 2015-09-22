@@ -11,6 +11,8 @@
 
 /*
 Changelog:
+9/22/15
+	Version 0.5 - Added print statements for Orders and began work on UI
 9/21/15
 	Version 0.4b - Removed Visual Studio dependencies and configured to work in a Linux environment
 4/13/15
@@ -43,10 +45,6 @@ Changelog:
 
 /*Known Issues
  -Seg Fault if CMEWorkgroup directory does not exist, but works the second time
- -
- -
- -
- -
  */
 
 #include "stdafx.h"
@@ -57,9 +55,11 @@ Changelog:
 #include "priceFetching.h" //methods to fetch prices of a stock or security or w/e
 #include "Globals.h"
 #include "threadController.h" //methods for controlling thread interaction
+#include "OrderController.h" //methods for execution trades
 
-
-void initialize(std::vector<Product> &, threadController &);
+void initialize(std::vector<Product>&, threadController &);
+void driver(OrderController&, std::vector<Product>&, threadController&);
+void commandTable(std::string&, OrderController&, std::vector<Product>&, threadController&);
 
 int main(){
 	std::vector<Product> products;
@@ -76,28 +76,63 @@ int main(){
 
 	//thread controller to manage multithreading
 	threadController tControl;
+	OrderController oControl;	
 	std::thread initialRun(initialize, std::ref(products), std::ref(tControl));
-
+	std::thread UI(driver,std::ref(oControl), std::ref(products), std::ref(tControl));
 	//for testing, will be removed when ui implemented
-	initialRun.join();
+	UI.join();
 
-	std::cout << "Found " << tControl.fetchProducts().size() << " securities with specified types";
-	std::cin.ignore();
 	return 0;
 }
 
-void initialize(std::vector<Product>& products, threadController &tControl){//initialize global vars among other things
+//initialize global vars among other things
+void initialize(std::vector<Product> &products, threadController &tControl){	
+//	products = tControl.updateProducts();
+}
 
-	products = tControl.updateProducts();
-
-	//this foreach loop will likely be removed when the ui is implemented
-	BOOST_FOREACH(Product v, products){
-		v.print();
+void driver(OrderController &oControl, std::vector<Product> &products, threadController &tControl){
+	std::string input;
+	
+	while(!(input == "quit")){
+		std::cout << ">";
+		std::getline(std::cin, input);
+		commandTable(input, oControl, products, tControl);
 	}
-
 
 }
 
+void commandTable(std::string &input, OrderController &oControl, std::vector<Product> &products, 
+		threadController &tControl){
+	if(input == "print products") {
+		if(products.size() == 0){
+			std::cout << "No products in database" << std::endl;
+		}
+		BOOST_FOREACH(Product v, products){
+			v.print();
+		}
+	} 
+	if(input == "print queue"){
+		oControl.printQueue();
+	}
+	if(input == "print inprogress"){
+		oControl.printInProgress();
+	}
+	if(input == "print completed"){
+		oControl.printCompleted();
+	}
+	if(input == "print all"){
+		oControl.printAll();
+	}
+	if(input == "update"){
+		std::cout << "Updating" << std::endl;
+		products = tControl.updateProducts();
+		std::cout << "Updated" << std::endl;
+		BOOST_FOREACH(Product v, products){
+			v.print();
+		}
+	
+	}	
+}
 
 /*TESTING BLOCKS (insert into main to test various functions)
 
