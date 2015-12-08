@@ -11,6 +11,8 @@
 
 /*
 Changelog:
+12/08/15
+	Version 0.5a - Fixed the random hang, turns out it wasn't a threading issue but rather I did not initialize the flags in thread controller
 9/22/15
 	Version 0.5 - Added print statements for Orders and began work on UI
 9/21/15
@@ -58,7 +60,7 @@ Changelog:
 #include "OrderController.h" //methods for execution trades
 
 void initialize(std::vector<Product>&, threadController &);
-void driver(OrderController&, std::vector<Product>&, threadController&);
+void driver(OrderController&, std::vector<Product>&, threadController &);
 void commandTable(std::string&, OrderController&, std::vector<Product>&, threadController&);
 
 int main(){
@@ -73,21 +75,27 @@ int main(){
 		standardTWAPSell,
 		aggressiveTWAPSell
 	};
-
-	//thread controller to manage multithreading
 	threadController tControl;
 	OrderController oControl;	
+	//products = tControl.updateProducts();
+	//for(auto v : products){
+	//	v.print();
+//	}
 	std::thread initialRun(initialize, std::ref(products), std::ref(tControl));
-	std::thread UI(driver,std::ref(oControl), std::ref(products), std::ref(tControl));
+	initialRun.join();
+	driver(oControl, products, tControl);
 	//for testing, will be removed when ui implemented
-	UI.join();
 
 	return 0;
 }
 
 //initialize global vars among other things
 void initialize(std::vector<Product> &products, threadController &tControl){	
-//	products = tControl.updateProducts();
+	products = tControl.updateProducts();
+	BOOST_FOREACH(Product v, products){
+		v.print();
+	}
+
 }
 
 void driver(OrderController &oControl, std::vector<Product> &products, threadController &tControl){

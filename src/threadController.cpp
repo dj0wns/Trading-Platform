@@ -7,6 +7,8 @@
 
 
 threadController::threadController(){
+	flagList[JSON_WRITE].store(0, std::memory_order_relaxed);
+	flagList[JSON_PARSE].store(0, std::memory_order_relaxed);
 	//ctor
 }
 
